@@ -1,0 +1,12 @@
+name = "notion-worker"
+webpack_config = "webpack.config.js"
+type = "webpack"
+
+account_id = "2bb2875868b9a20b2e9f543939d6ce97"
+workers_dev = true
+route = "notion-worker.sebtoombs.workers.dev/*"
+zone_id = ""
+compatibility_date = "2021-12-12"
+
+# [secrets]
+# WORKER_API_KEY
