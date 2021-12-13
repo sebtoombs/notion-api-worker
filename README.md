@@ -85,6 +85,33 @@ If you want to develop this project "locally", you can do so using `wrangler`. F
 wrangler dev
 ```
 
+## Use with Notion JS SDK
+
+You can even use this with the [Notion JS SDK](https://github.com/makenotion/notion-sdk-js).
+
+```javascript
+import { Client as NotionClient } from '@notionhq/client'
+
+// Create your notion client, with auth token, as normal
+const notion = new NotionClient({
+  auth: process.env.NOTION_TOKEN,
+  // Override the fetch implementation
+  fetch: (url, init) => {
+    // Rewrite all request URLs to the Notion API
+    url = url.replace(
+      /^https:\/\/api\.notion\.com/,
+      // Put your worker URL here
+      'https://my-notion-worker.my-subdomain.workers.dev',
+    )
+
+    // Make sure your worker api key is added here
+    init.headers['X-Worker-Auth'] = process.env.NOTION_WORKER_API_KEY
+
+    return fetch(url, init)
+  },
+})
+```
+
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
